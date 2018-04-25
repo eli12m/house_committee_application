@@ -6,8 +6,7 @@
         "img"    : "assets/images/tenants/israeli.jpg",
         "email"  : "israelisraeli@gmail.com",
         "password" : "1111",
-        "aptNum" : "5",
-        "isCommitteeMember" : true
+        "aptNum" : "5"
     },
     {
         "internalId" : "2",
@@ -16,8 +15,7 @@
         "img"    : "assets/images/tenants/doe.jpg",
         "email"  : "johndoe@gmail.com",
         "password" : "1111",
-        "aptNum" : "12",
-        "isCommitteeMember" : false
+        "aptNum" : "12"
     },
     {
         "internalId" : "3",
@@ -26,7 +24,6 @@
         "img"    : "assets/images/tenants/cohen.jpg",
         "email"  : "noacohen@gmail.com",
         "password" : "1111",
-        "aptNum" : "15",
-        "isCommitteeMember" : false
+        "aptNum" : "15"
     }
 ]
