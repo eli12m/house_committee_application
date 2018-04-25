@@ -63,7 +63,7 @@ app.controller( "tenantsCtrl", function( $scope, $location, tenantsService, logi
         $scope.tenantLnameInput          = "";
         $scope.tenantEmailInput          = "";
         $scope.tenantAptNumInput         = "";
-        $scope.tenantImageInput          = "/assets/images/tenants/placeholder.jpg";
+        $scope.tenantImageInput          = "assets/images/tenants/placeholder.jpg";
 
         /* we did this to clear the file name in the file input box */
         if( angular.element( document.querySelector( '#tenantImage' )).length > 0 ) {
