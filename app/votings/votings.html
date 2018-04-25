@@ -1,0 +1,252 @@
+<header main-nav-bar-directive>
+</header>
+<main class="container">
+    <div class="row mt-4">
+        <div class="col-md-6 border-right">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="text-center">Active Votes</h3>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-12 clearfix">
+                    <!--Doing onClick="return false; because we use element a but we dont want it to jump to any page - fake link so we put # but because we use ng-route and there we have the option .otherwise({redirectTo : "/"}); so it catch this fake link and bring us to the main page and doesnt open the modal box. In stackoverflow they say this will fix it-->
+                    <a class="float-to-right new-msg-btn" href="#" data-toggle="modal" data-target="#newVotingModal" onClick="return false;"
+                        ng-if="isShowBtn()">New Voting</a>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <div id="accordion1">
+                        <div class="card" ng-repeat="voting in votings">
+                            <div class="card-header" id="heading-{{voting.getId()}}">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{voting.getId()}}" aria-expanded="true" aria-controls="collapse-{{voting.getId()}}"
+                                                ng-class="showBoldStyleVotingFunc(voting)">
+                                                {{voting.getTitle()}}
+                                            </button>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="collapse-{{voting.getId()}}" class="collapse" aria-labelledby="heading-{{voting.getId()}}" data-parent="#accordion1">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label class="ml-3 grey-font">Details:</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p class="ml-3">{{voting.getDetails()}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-if="isShowBtn()">
+                                        <div class="col-lg-12">
+                                            <label class="ml-3 grey-font">Voting Percentage:</label>
+                                            <div google-chart chart="getVotesPrecentageObj(voting)"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <label class="ml-3 grey-font">End Date:</label>
+                                        </div>
+                                        <div class="col-lg-6" ng-hide="isShowBtn()">
+                                            <label class="ml-3">{{voting.getEndDate() | date}}</label>
+                                        </div>
+                                        <div class="col-lg-6" ng-show="isShowBtn()">
+                                            <input type="date" id="endDate" class="form-control ml-3" ng-model="voting.endDate"
+                                            placeholder="yyyy-MM-dd" min="2001-01-01">
+                                        </input>
+                                        </div>
+                                        <!--<div class="col-lg-2">
+                                            <button type="button" class="btn btn-info ml-3" ng-if="isShowBtn()">
+                                                <i class="fa  fa-2x fa-calendar"></i>
+                                            </button>
+                                        </div>-->
+                                    </div>
+                                    <!--todo:to do the dynamic select option. How I do that?-->
+                                    <div class="form-group row mt-3" ng-show="isNeedToVote(voting)">
+                                        <!--todo: to change to ng-if-->
+                                        <label for="voteOptions" class="ml-3 grey-font col-lg-3 col-form-label">Your vote:</label>
+                                        <div class="col-lg-6">
+                                            <select class="form-control" id="voteOptions" ng-model="voting.draftVote" ng-disabled="isDisableBtn(voting)" ng-options="item for item in voting.optVotes">
+                                                <!--<option value="In Favor">In Favor</option>
+                                                <option value="Against">Against</option>-->
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button type="button" class="btn btn-info" ng-disabled="isDisableBtn(voting)" ng-click="subTenantVoteOpt(voting)">Submit</button>
+                                        </div>
+                                    </div>
+                                    <!--ng-show and ng-hide are saying that the elements will be renderd but only it will appear or disappear so even that is is disappear the other CBs like getTenantVotedOpt(voting) will be called. But if we do ng-if so it will not be rendered at all so the other CBs will not be called.-->
+                                    <div class="row mt-3" ng-hide="isNeedToVote(voting)">
+                                        <!--todo: to change to ng-if-->
+                                        <label class="ml-3 grey-font col-lg-3">Your vote:</label>
+                                        <label class="col-lg-6">{{getTenantVotedOpt(voting)}}</label>
+                                    </div>
+                                    <div class="row mt-3" ng-if="isShowBtn()">
+                                        <div class="col-lg-12 text-center">
+                                            <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="{{whichModalToShow( voting )}}" ng-click="endEndedNotEndedVotingFunc(voting)">End Voting</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 border-left">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="text-center">Votes Results</h3>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="text" class="form-control round-frame" id="filter-text" placeholder="Filter by Text in Title and Details" ng-model="filterInTitleDetailsInput">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <div id="accordion2">
+                        <div class="card" ng-repeat="endVoting in endedVotings | filter:filterEndedVotingByTitleAndDetailFunc">
+                            <div class="card-header" id="heading-ended-{{endVoting.getId()}}">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-ended-{{endVoting.getId()}}" aria-expanded="true" aria-controls="collapse-ended-{{endVoting.getId()}}"
+                                            ng-class="showBoldStyleVotingFunc(endVoting)">
+                                            {{endVoting.getTitle()}}
+                                            </button>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="collapse-ended-{{endVoting.getId()}}" class="collapse" aria-labelledby="heading-ended-{{endVoting.getId()}}" data-parent="#accordion2">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label class="ml-3 grey-font">Details:</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p class="ml-3">{{endVoting.getDetails()}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label class="ml-3 grey-font">Voting Results:</label>
+                                            <div google-chart chart="getVotesPrecentageObj(endVoting)"></div>
+                                            <div google-chart chart="getResultsVotesPrecentageObj(endVoting)"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <label class="ml-3 grey-font">Ended:</label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label class="ml-3">{{endVoting.getEndDate() | date}}</label>
+                                        </div>
+                                    </div>
+                                    <!--ng-show and ng-hide are saying that the elements will be renderd but only it will appear or disappear so even that is is disappear the other CBs like getTenantVotedOpt(voting) will be called. But if we do ng-if so it will not be rendered at all so the other CBs will not be called.-->
+                                    <div class="row mt-3" ng-hide="isNeedToVote(endVoting)">
+                                        <!--todo: to change to ng-if-->
+                                        <label class="ml-3 grey-font col-lg-3">Your vote:</label>
+                                        <label class="col-lg-6">{{getTenantVotedOpt(endVoting)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- The Modal -->
+    <div class="modal fade" id="alertModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirmation</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                     Are you sure you want to close this voting before the end date?
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class = "btn btn-danger" data-dismiss="modal" ng-click = "endVotingFunc()">End Voting</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newVotingModal">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">New Voting</h4>
+                    <button type="button" class="close" data-dismiss="modal" ng-click="cancelVotingFunc()">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body container">
+                    <div class="form-group row">
+                        <label for="votingTitle" class="col-md-2 col-form-label">Title:</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="votingTitle" placeholder="Title" ng-model = "votingTitleInput">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="votingDetails" class="col-md-2 col-form-label">Details:</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" id="votingDetails" maxlength="500" ng-model = "votingDetailsInput"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="votingOpts-0" class="col-md-2 col-form-label">Options:</label>
+                        <div class="col-md-10" >
+                            <div ng-repeat="votingOpt in votingOpts">
+                                <input type="text" class="form-control" id="votingOpts-{{votingOpts.indexOf(votingOpt)}}" ng-model="votingOpt.optionVal"><br/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-2">
+                        </div>
+                        <button type="button" class="btn btn-link col-md-2 nopadding new-msg-btn" ng-click="addNewVoteOptionFunc()">Add Option</button>    
+                    </div>
+                    <div class="form-group row mt-5">
+                        <label for="votingEndDate" class="col-md-2 col-form-label">End Date:</label>
+                        <div class="col-md-7">
+                            <input type="date" id="votingEndDate" class="form-control" ng-model="votingEndDateInput"
+                            placeholder="yyyy-MM-dd" min="2001-01-01">
+                        </div>
+                        <!--<div class="col-md-7">
+                            <label class="col-form-label">{{votingEndDateInput | date}}</label>
+                        </div>-->
+                        <!--<div class="col-md-3">
+                            <button type="button" class="btn btn-danger">
+                                <i class="fa  fa-2x fa-calendar"></i>
+                            </button>
+                        </div>-->
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class = "btn btn-danger" data-dismiss="modal" ng-click="createVotingFunc()">Create</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelVotingFunc()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

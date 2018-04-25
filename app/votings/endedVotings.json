@@ -1,0 +1,35 @@
+[
+    {
+        "votingId" : "4",
+        "title"    : "New Chairman",
+        "details"  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "endDate"  : "2018-03-30",
+        "votes"    : [ {"voteBy" : "israelisraeli@gmail.com",
+                        "voteVal" : "Dan Cohen"},
+                       {"voteBy" : "noacohen@gmail.com",
+                        "voteVal" : "Avi Levi"} ],
+        "optVotes" : ["Avi Levi", "Dan Cohen"]
+    },
+    {
+        "votingId" : "5",
+        "title"    : "Electronic Gate",
+        "details"  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "endDate"  : "2018-04-13",
+        "votes"    : [ {"voteBy" : "johndoe@gmail.com",
+                        "voteVal" : "In Favor"},
+                       {"voteBy" : "noacohen@gmail.com",
+                        "voteVal" : "Against"},
+                       {"voteBy" : "israelisraeli@gmail.com",
+                        "voteVal" : "Against"}],                       
+        "optVotes" : ["In Favor", "Against"]
+    },
+    {
+        "votingId" : "6",
+        "title"    : "Painting The Entrance Hall",
+        "details"  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "endDate"  : "2018-05-17",
+        "votes"    : [ {"voteBy" : "johndoe@gmail.com",
+                        "voteVal" : "In Favor"} ],
+        "optVotes" : ["In Favor", "Against"]
+    }
+]

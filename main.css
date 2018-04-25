@@ -1,0 +1,53 @@
+@font-face {
+    font-family: monotonFont;
+    src: url(assets/Monoton-Regular.ttf);
+}
+
+.mono-font{
+    font-family: monotonFont;
+}
+
+.round-frame{
+    border-radius: 10em 10em 5em 5em;
+}
+
+@media screen and (min-width: 768px){
+    .float-to-right{
+        float: right;
+    }
+}
+
+.new-msg-btn{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.grey-font{
+    color: gray;
+}
+
+.img-property{
+    width: 100%;
+}
+
+.info-style{
+    color: blue;
+}
+
+.warning-style{
+    color: red;
+}
+
+.date-style{
+    color: grey;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.bold-style{
+    font-weight: bold;
+}
+
+.nopadding{
+    padding: 0;
+}

@@ -1,0 +1,32 @@
+[
+    {
+        "internalId" : "1",
+        "fname"  : "Israel",
+        "lname"  : "Israeli",
+        "img"    : "assets/images/tenants/israeli.jpg",
+        "email"  : "israelisraeli@gmail.com",
+        "password" : "1111",
+        "aptNum" : "5",
+        "isCommitteeMember" : true
+    },
+    {
+        "internalId" : "2",
+        "fname"  : "John",
+        "lname"  : "Doe",
+        "img"    : "assets/images/tenants/doe.jpg",
+        "email"  : "johndoe@gmail.com",
+        "password" : "1111",
+        "aptNum" : "12",
+        "isCommitteeMember" : false
+    },
+    {
+        "internalId" : "3",
+        "fname"  : "Noa",
+        "lname"  : "Cohen",
+        "img"    : "assets/images/tenants/cohen.jpg",
+        "email"  : "noacohen@gmail.com",
+        "password" : "1111",
+        "aptNum" : "15",
+        "isCommitteeMember" : false
+    }
+]

@@ -1,0 +1,252 @@
+<header main-nav-bar-directive>
+</header>
+<main class="container">
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" class="form-control round-frame" id="filter-text" placeholder="Filter by Text in Title and Details" ng-model="filterInTitleDetailsInput">
+                </div>
+            </div>
+            <div class="col-md-6 clearfix">
+                <form class="float-to-right">
+                    <label class="ml-4">Sort by:</label>
+                    <label class="radio-inline ml-4">
+                        <input type="radio" name="sort-radio" value="creationDate" ng-model="orderByInput" checked>Date
+                    </label>
+                    <label class="radio-inline ml-4">
+                        <input type="radio" name="sort-radio" value="priority" ng-model="orderByInput">Priority
+                    </label>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12 clearfix">
+                <!--Doing onClick="return false; because we use element a but we dont want it to jump to any page - fake link so we put # but because we use ng-route and there we have the option .otherwise({redirectTo : "/"}); so it catch this fake link and bring us to the main page and doesnt open the modal box. In stackoverflow they say this will fix it-->
+                <a class="float-to-right new-msg-btn" href="#" data-toggle="modal" data-target="#newMessageModal" onClick="return false;" ng-show="isShowBtn()">New Message</a>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div id="accordion">
+                    <div class="card" ng-repeat="message in messages | filter:filterMessagesByTitleAndDetailFunc | orderBy:orderByInput:orderDirection()">
+                        <div class="card-header" id="heading-{{message.getId()}}">
+                            <div class="row">
+                                <div class="col-sm-11">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{message.getId()}}" aria-expanded="true" aria-controls="collapse-{{message.getId()}}" ng-class="showBoldStyleMsgFunc(message)" ng-click="clickOnTitleMsgFunc(message)">
+                                            {{message.getTitle()}} 
+                                        </button>
+                                        <label class="date-style">{{message.getCreationDate() | date}}</label>
+                                    </h5>
+                                </div>
+                                <div class="col-sm-1">
+                                    <i class="fa fa-2x" aria-hidden="true" ng-class="{'fa-exclamation-circle': message.getPriority() === 'Important', 'fa-info-circle': message.getPriority() === 'Information', 'warning-style': message.getPriority() === 'Important', 'info-style': message.getPriority() === 'Information'}"></i>
+                                </div>
+                            </div>     
+                        </div>
+                        <div id="collapse-{{message.getId()}}" class="collapse" aria-labelledby="heading-{{message.getId()}}" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 border-right">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <img class="img-property" ng-src="{{message.getImg()}}">
+                                            </div>
+                                            <div class="col-md-9">
+                                                <label class="ml-3 grey-font">Details:</label>
+                                                <p class="ml-3">{{message.getDetails()}}</p>
+                                                <label class="ml-3 grey-font">Priority:</label>
+                                                <label class="ml-3">{{message.getPriority()}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 clearfix">
+                                                <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteConfirmModal" ng-show="isShowBtn()" ng-click="setMessageForRmvFunc(message)">Delete</button>
+                                                <button type="button" class="btn btn-info float-right mr-2" data-toggle="modal" data-target="#updateMessageModal" ng-show="isShowBtn()" ng-click="fillInputsForUpdFunc(message)">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                   <!-- <div class="card">
+                        <div class="card-header clearfix" id="headingOne">
+                            <i class="fa fa-exclamation-circle fa-2x warning-style float-right" aria-hidden="true"></i>
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Dont step on the grass!
+                                </button>
+                                <label class="date-style">01/02/18</label>
+                            </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 border-right">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <img class="img-property" src="/assets/images/messages/grass.jpeg" alt="Grass">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="ml-3 grey-font">Details:</label>
+                                                <p class="ml-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                                <label class="ml-3 grey-font">Priority:</label>
+                                                <label class="ml-3">Important</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 clearfix">
+                                                <button type="button" class="btn btn-danger float-right">Delete</button>
+                                                <button type="button" class="btn btn-info float-right mr-2">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    /*<div class="col-md-6 border-left">
+
+                                    </div>*/
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header clearfix" id="headingTwo">
+                            <i class="fa fa-info-circle fa-2x info-style float-right" aria-hidden="true"></i>
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    New classes in the gym
+                                </button>
+                                <label class="date-style">14/03/18</label>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 border-right">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <img class="img-property" src="/assets/images/messages/gym.jpg" alt="Gym">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="ml-3 grey-font">Details:</label>
+                                                <p class="ml-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                                <label class="ml-3 grey-font">Priority:</label>
+                                                <label class="ml-3">Information</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 clearfix">
+                                                <button type="button" class="btn btn-danger float-right">Delete</button>
+                                                <button type="button" class="btn btn-info float-right mr-2">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    /*<div class="col-md-6 border-left">
+
+                                    </div>*/
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header clearfix" id="headingThree">
+                            <i class="fa fa-info-circle fa-2x info-style float-right" aria-hidden="true"></i>
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Closing the pool for maintanence
+                                </button>
+                                <label class="date-style">08/04/18</label>
+                            </h5> 
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 border-right">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <img class="img-property" src="/assets/images/messages/pool.jpg" alt="Swiming Pool">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="ml-3 grey-font">Details:</label>
+                                                <p class="ml-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                                <label class="ml-3 grey-font">Priority:</label>
+                                                <label class="ml-3">Information</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 clearfix">
+                                                <button type="button" class="btn btn-danger float-right">Delete</button>
+                                                <button type="button" class="btn btn-info float-right mr-2">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    /*<div class="col-md-6 border-left">
+
+                                    </div>*/
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div class="modal fade" id="deleteConfirmModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Confirmation</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        Are you sure you want to remove this message?
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                            <button type="button" class = "btn btn-danger" data-dismiss="modal" ng-click = "removeMessageFunc()">Delete</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="newMessageModal">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">New Message</h4>
+                        <button type="button" class="close" data-dismiss="modal" ng-click="cancelMsgFunc()">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div message-inputs-directive class="modal-body container">
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class = "btn btn-danger" data-dismiss="modal" ng-click="createMessageFunc()">Create</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelMsgFunc()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="updateMessageModal">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Update Message</h4>
+                        <button type="button" class="close" data-dismiss="modal" ng-click="cancelMsgFunc()">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div message-inputs-directive class="modal-body container">                        
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class = "btn btn-danger" data-dismiss="modal" ng-click="updateMessageFunc()">Update</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelMsgFunc()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>

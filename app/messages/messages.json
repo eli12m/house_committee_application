@@ -1,0 +1,29 @@
+[
+    {
+        "msgId" : "1",
+        "title" : "New classes in the gym",
+        "creationDate" : "2018-03-14",
+        "img" : "assets/images/messages/gym.jpg",
+        "details" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "priority" : "Information",
+        "readBy" : []
+    },
+    {
+        "msgId" : "2",
+        "title" : "Dont step on the grass!",
+        "creationDate" : "2018-02-01",
+        "img" : "assets/images/messages/grass.jpeg",
+        "details" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "priority" : "Important",
+        "readBy" : [ "johndoe@gmail.com" ]
+    },
+    {
+        "msgId" : "3",
+        "title" : "Closing the pool for maintanence",
+        "creationDate" : "2018-01-08",
+        "img" : "assets/images/messages/pool.jpg",
+        "details" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "priority" : "Information",
+        "readBy" : [ "israelisraeli@gmail.com" ]
+    }
+]

@@ -1,0 +1,36 @@
+<div class="form-group row">
+        <label for="messageTitle" class="col-md-2 col-form-label">Title:</label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" id="messageTitle" placeholder="Title" ng-model = "messageTitleInput">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="messageDetails" class="col-md-2 col-form-label">Details:</label>
+        <div class="col-md-10">
+            <textarea class="form-control" id="messageDetails" maxlength="500" ng-model = "messageDetailsInput"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="messagePriority" class="col-md-2 col-form-label">Priority:</label>
+        <div class="col-md-10">
+            <select class="form-control" id="messagePriority" ng-model = "messagePriorityInput">
+                <option value="Important">Important</option>
+                <option value="Information">Information</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="messageImage" class="col-md-2 col-form-label">Image:</label>
+        <div class="col-md-6">
+            <input type="file" class="form-control" id="messageImage" ng-model = "messageImageInput" accept="image/*" app-filereader>
+        </div>
+        <div class="col-md-4">
+            <img class="img-property" ng-src="{{messageImageInput}}" alt="Image preview" > 
+        </div>
+        <!--<div class="col-md-6">
+            <input type="text" class="form-control" id="messageImage" placeholder="Image URL" ng-model = "messageImageInput">
+        </div>
+        <div class="col-md-4">
+            <img class="img-property" ng-src="{{messageImageInput}}" alt="Image preview" > 
+        </div>-->
+    </div>

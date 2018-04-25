@@ -1,0 +1,30 @@
+[
+    {
+        "votingId" : "1",
+        "title"    : "New Front Door",
+        "details"  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "endDate"  : "2018-04-30",
+        "votes"    : [ {"voteBy" : "israelisraeli@gmail.com",
+                        "voteVal" : "In Favor"} ],
+        "optVotes" : ["In Favor", "Against"]
+    },
+    {
+        "votingId" : "2",
+        "title"    : "Replace Roof",
+        "details"  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "endDate"  : "2018-04-15",
+        "votes"    : [],
+        "optVotes" : ["In Favor", "Against"]
+    },
+    {
+        "votingId" : "3",
+        "title"    : "New elevator",
+        "details"  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "endDate"  : "2018-05-17",
+        "votes"    : [ {"voteBy" : "johndoe@gmail.com",
+                        "voteVal" : "In Favor"},
+                       {"voteBy" : "noacohen@gmail.com",
+                        "voteVal" : "Against"} ],
+        "optVotes" : ["In Favor", "Against"]
+    }
+]

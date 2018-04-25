@@ -1,0 +1,150 @@
+<header main-nav-bar-directive>
+</header>
+<main class="container">
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="text" class="form-control round-frame" id="filter-text" placeholder="Filter" ng-model="filterTenantInput">
+            </div>
+        </div>
+        <div class="col-md-6 clearfix">
+            <form class="float-to-right">
+                <label class="ml-4">Sort by:</label>
+                <label class="radio-inline ml-4">
+                    <input type="radio" name="sort-radio-tenant" value="lname" ng-model="orderTenantByInput" checked>surname
+                </label>
+                <label class="radio-inline ml-4">
+                    <input type="radio" name="sort-radio-tenant" value="aptNum" ng-model="orderTenantByInput">Apt#
+                </label>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12 clearfix">
+            <!--Doing onClick="return false; because we use element a but we dont want it to jump to any page - fake link so we put # but because we use ng-route and there we have the option .otherwise({redirectTo : "/"}); so it catch this fake link and bring us to the main page and doesnt open the modal box. In stackoverflow they say this will fix it-->
+            <a class="float-to-right new-msg-btn" href="#" data-toggle="modal" data-target="#newTenantModal" onClick="return false;">New Tenant</a>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div id="accordion">
+                <div class="card" ng-repeat="tenant in tenants | filter:filterTenantsFunc | orderBy:orderTenantByInput">
+                    <div class="card-header clearfix" id="heading-{{tenant.getId()}}">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{tenant.getId()}}" aria-expanded="true" aria-controls="collapse-{{tenant.getId()}}">
+                                {{tenant.getFullName()}} 
+                            </button>
+                            <label class="date-style">Apt# {{tenant.getAptNum()}}</label>
+                        </h5>    
+                    </div>
+                    <div id="collapse-{{tenant.getId()}}" class="collapse" aria-labelledby="heading-{{tenant.getId()}}" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 border-right">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img class="img-property" ng-src="{{tenant.getImg()}}">
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-1">
+                                                    <label class="ml-3 grey-font">Name:</label>
+                                                </div>
+                                                <div class="col-11">
+                                                    <label class="ml-3">{{tenant.getFullName()}}</label>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-1">
+                                                    <label class="ml-3 grey-font">Email:</label>
+                                                </div>
+                                                <div class="col-11">
+                                                    <label class="ml-3">{{tenant.getEmail()}}</label>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-1">
+                                                    <label class="ml-3 grey-font">Apt:</label>
+                                                </div>
+                                                <div class="col-11">
+                                                    <label class="ml-3">{{tenant.getAptNum()}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 clearfix">
+                                            <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteConfirmModal" ng-click="setTenantForRmvFunc(tenant)">Delete</button>
+                                            <button type="button" class="btn btn-info float-right mr-2" data-toggle="modal" data-target="#updateTenantModal" ng-click="fillInputsForUpdFunc(tenant)">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- The Modal -->
+    <div class="modal fade" id="deleteConfirmModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirmation</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Are you sure you want to remove this tenant?
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class = "btn btn-danger" data-dismiss="modal" ng-click = "removeTenantFunc()">Delete</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newTenantModal">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">New Tenant</h4>
+                    <button type="button" class="close" data-dismiss="modal" ng-click="cancelTenantFunc()">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div tenant-inputs-directive class="modal-body container">
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class = "btn btn-danger" data-dismiss="modal" ng-click="createTenantFunc()">Create</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelTenantFunc()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="updateTenantModal">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Tenant</h4>
+                    <button type="button" class="close" data-dismiss="modal" ng-click="cancelTenantFunc()">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div tenant-inputs-directive class="modal-body container">                        
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class = "btn btn-danger" data-dismiss="modal" ng-click="updateTenantFunc()">Update</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="cancelTenantFunc()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>  
+</main>
