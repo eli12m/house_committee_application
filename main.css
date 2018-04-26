@@ -15,6 +15,10 @@
     background-attachment: fixed;
 }
 
+.margin-top-navbar{
+    margin-top: 100px;
+}
+
 .round-frame{
     border-radius: 10em 10em 5em 5em;
 }
