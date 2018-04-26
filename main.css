@@ -8,7 +8,7 @@
 }
 
 .landing-page-image{
-    background-image: url("/assets/images/landingpage/tower.jpg");
+    background-image: url("assets/images/landingpage/tower.jpg");
     height: 100vh; /* cause to the picture to be as long as the viewport now because i didnt set the width so it will be filled automatically by keeping the image ratio*/
     background-size: cover;
     background-repeat: no-repeat;
